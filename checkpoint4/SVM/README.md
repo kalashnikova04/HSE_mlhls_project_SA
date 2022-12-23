@@ -2,9 +2,9 @@
 
 - ***Порядок просмотра результатов:***
 
-1. [Стандартный SVC]()
-2. [Понижение размерности]()
-3. [Word2Vec]()
+1. [Стандартный SVC](https://github.com/kalashnikova04/HSE_mlhls_project_SA/blob/master/checkpoint4/SVM/SVM_1.ipynb)
+2. [Понижение размерности](https://github.com/kalashnikova04/HSE_mlhls_project_SA/blob/master/checkpoint4/SVM/SVM_2.ipynb)
+3. [Word2Vec](https://github.com/kalashnikova04/HSE_mlhls_project_SA/blob/master/checkpoint4/SVM/SVM_3.ipynb)
 
 - ***Что было сделано?***<br>
     - *Константный прогноз* для сравнения результатов обученных моделей.
@@ -47,7 +47,8 @@
     Эксперименты показали, что лучший результат (по метрике `f1-micro`) показала обычная модель SVC с уни и биграммами. Конечно, на это повлиял и тот факт, что остальные эксперименты проводились на подвыборках сильно меньшего размера. Обучение на больших выборках могло длиться несколько часов и затем прерываться, тк ядро прекращало работу.
 
 
-    ![Image alt](/images/colab_break.png)
+    ![Image alt](./images/colab_break.png)
+<!--     /images/colab_break.png -->
 
 
 
