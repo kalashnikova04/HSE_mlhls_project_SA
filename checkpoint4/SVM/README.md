@@ -48,11 +48,10 @@
 
 
     ![Image alt](./images/colab_break.png)
-<!--     /images/colab_break.png -->
 
 
 
-    ![Image alt](/images/bagg_class.png)
+    ![Image alt](./images/bagg_class.png)
 
 - **Вывод:** 
     - *По времени*: использовать SVM на выборках большого размера неэффективно;
