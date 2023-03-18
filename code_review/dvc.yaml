@@ -36,3 +36,17 @@ stages:
     params:
     - text_processing
     - catboost
+  train:
+    cmd: python best_model.py --input_train_validate datasets/train_val/train.csv --input_val
+      datasets/train_val/val.csv --test datasets/train_test/test.csv --params params.yaml
+    deps:
+    - datasets/train_val/train.csv
+    - datasets/train_val/val.csv
+    - datasets/train_test/test.csv
+    - best_model.py
+    params:
+    - catboost
+    metrics:
+    - metrics.json
+    outs:
+    - catboost_info
