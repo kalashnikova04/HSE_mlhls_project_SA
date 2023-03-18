@@ -4,14 +4,14 @@ stages:
     outs:
     - datasets/preprocessed_texts.csv
   split_test:
-    cmd: python .\train_test_splitter.py --input .\datasets\preprocessed_texts.csv
-      --output_train .\datasets\train_test\train.csv --output_test .\datasets\train_test\test.csv
+    cmd: python train_test_splitter.py --input datasets/preprocessed_texts.csv
+      --output_train datasets/train_test/train.csv --output_test datasets/train_test/test.csv
       --params params.yaml
     deps:
-    - .\datasets\preprocessed_texts.csv
+    - datasets/preprocessed_texts.csv
     - train_test_splitter.py
     params:
     - split_test
     outs:
-    - .\datasets\train_test\test.csv
-    - .\datasets\train_test\train.csv
+    - datasets/train_test/test.csv
+    - datasets/train_test/train.csv

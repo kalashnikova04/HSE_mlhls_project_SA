@@ -7,22 +7,25 @@ stages:
       md5: 07463b024a29177e53a4ebf568719456
       size: 216632908
   split_test:
-    cmd: python .\train_test_splitter.py --input .\datasets\preprocessed_texts.csv
-      --output_train .\datasets\train_test\train.csv --output_test .\datasets\train_test\test.csv
-      --params params.yaml
+    cmd: python train_test_splitter.py --input datasets/preprocessed_texts.csv --output_train
+      datasets/train_test/train.csv --output_test datasets/train_test/test.csv --params
+      params.yaml
     deps:
-    - path: .\datasets\preprocessed_texts.csv
+    - path: datasets/preprocessed_texts.csv
       md5: 07463b024a29177e53a4ebf568719456
       size: 216632908
+    - path: train_test_splitter.py
+      md5: 7e2854677d17520b156b545f61432c57
+      size: 961
     params:
       params.yaml:
         split_test:
           random_state: 42
           test_size: 0.3
     outs:
-    - path: .\datasets\train_test\test.csv
+    - path: datasets/train_test/test.csv
       md5: 99efa52fca86b89bf6e6919702ff6b7d
       size: 65472930
-    - path: .\datasets\train_test\train.csv
+    - path: datasets/train_test/train.csv
       md5: 2fa3812f9b54300f7368cd5d2f0a6a0d
       size: 152486867
