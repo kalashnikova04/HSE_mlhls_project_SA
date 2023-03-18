@@ -1,0 +1,8 @@
+schema: '2.0'
+stages:
+  download:
+    cmd: gdown --output datasets/preprocessed_texts.csv https://drive.google.com/u/0/uc?id=1SINqrwjpJOfFxkQDzv4XzoKB3A0A0cws
+    outs:
+    - path: datasets/preprocessed_texts.csv
+      md5: 07463b024a29177e53a4ebf568719456
+      size: 216632908

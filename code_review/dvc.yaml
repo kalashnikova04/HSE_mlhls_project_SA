@@ -1,0 +1,5 @@
+stages:
+  download:
+    cmd: gdown --output datasets/preprocessed_texts.csv https://drive.google.com/u/0/uc?id=1SINqrwjpJOfFxkQDzv4XzoKB3A0A0cws
+    outs:
+    - datasets/preprocessed_texts.csv
