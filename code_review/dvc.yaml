@@ -15,3 +15,14 @@ stages:
     outs:
     - datasets/train_test/test.csv
     - datasets/train_test/train.csv
+  split_val:
+    cmd: python train_val_splitter.py --train datasets/train_test/train.csv --output_train_validate
+      datasets/train_val/train.csv --output_val datasets/train_val/val.csv --params params.yaml
+    deps:
+    - datasets/train_test/train.csv
+    - train_val_splitter.py
+    params:
+    - split_val
+    outs:
+    - datasets/train_val/val.csv
+    - datasets/train_val/train.csv

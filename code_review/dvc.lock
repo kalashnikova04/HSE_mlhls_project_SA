@@ -29,3 +29,26 @@ stages:
     - path: datasets/train_test/train.csv
       md5: 2fa3812f9b54300f7368cd5d2f0a6a0d
       size: 152486867
+  split_val:
+    cmd: python train_val_splitter.py --train datasets/train_test/train.csv --output_train_validate
+      datasets/train_val/train.csv --output_val datasets/train_val/val.csv --params
+      params.yaml
+    deps:
+    - path: datasets/train_test/train.csv
+      md5: 2fa3812f9b54300f7368cd5d2f0a6a0d
+      size: 152486867
+    - path: train_val_splitter.py
+      md5: 0f02be2ac2fc9b8e7de5d254b07538ae
+      size: 1012
+    params:
+      params.yaml:
+        split_val:
+          random_state: 42
+          test_size: 0.3
+    outs:
+    - path: datasets/train_val/train.csv
+      md5: b9be1d70f618c6e335d1cf8c0ff45194
+      size: 106742638
+    - path: datasets/train_val/val.csv
+      md5: 7a0537e959a75edcb7d7e0806ea67147
+      size: 45744258
