@@ -26,3 +26,13 @@ stages:
     outs:
     - datasets/train_val/val.csv
     - datasets/train_val/train.csv
+  objective:
+    cmd: python objective_catboost.py --input_train_validate datasets/train_val/train.csv --input_val
+      datasets/train_val/val.csv --test datasets/train_test/test.csv --params params.yaml
+    deps:
+    - datasets/train_val/train.csv
+    - datasets/train_val/val.csv
+    - objective_catboost.py
+    params:
+    - text_processing
+    - catboost
