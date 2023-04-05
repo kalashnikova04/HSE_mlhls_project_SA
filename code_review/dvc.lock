@@ -64,8 +64,8 @@ stages:
       md5: 7a0537e959a75edcb7d7e0806ea67147
       size: 45744258
     - path: objective_catboost.py
-      md5: 2dd7db7d0d4929ac59004ff194a7f8c4
-      size: 2099
+      md5: 3ee4b391c40f9a24ee994271cc7ee772
+      size: 2133
     params:
       params.yaml:
         catboost:
@@ -120,13 +120,9 @@ stages:
               tokenizers_names:
               - Space
   train:
-    cmd: python best_model.py --input_train_validate datasets/train_val/train.csv
-      --input_val datasets/train_val/val.csv --test datasets/train_test/test.csv --params
-      params.yaml
+    cmd: python main.py --input_train_validate datasets/train_val/train.csv --input_val
+      datasets/train_val/val.csv --test datasets/train_test/test.csv --params params.yaml
     deps:
-    - path: best_model.py
-      md5: 957566a1223a9c8088820a1a9ca6172c
-      size: 2483
     - path: datasets/train_test/test.csv
       md5: 99efa52fca86b89bf6e6919702ff6b7d
       size: 65472930
@@ -136,6 +132,9 @@ stages:
     - path: datasets/train_val/val.csv
       md5: 7a0537e959a75edcb7d7e0806ea67147
       size: 45744258
+    - path: main.py
+      md5: 957566a1223a9c8088820a1a9ca6172c
+      size: 2483
     params:
       params.yaml:
         catboost:
@@ -146,9 +145,9 @@ stages:
           random_seed: 42
     outs:
     - path: catboost_info
-      md5: c4c1df7522eee2bf27ff9e7e0ae7f253.dir
-      size: 1527041
+      md5: 6c7128ba5083adf100c81e7d1033b3fb.dir
+      size: 1340430
       nfiles: 6
     - path: metrics.json
-      md5: d1bcc79490e7a5270c8216996b46408c
+      md5: 064dac25fe2cefd02940ddc7378a22ee
       size: 150

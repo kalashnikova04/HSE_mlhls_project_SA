@@ -26,24 +26,21 @@ def make_pool(X, y):
                 feature_names=text_features)
 
 
-args = parse_args()
-
-with open(args.params, 'r') as fp:
-    params = yaml.safe_load(fp)
-
-df_train = pd.read_csv(args.input_train_validate, index_col=0)
-df_val = pd.read_csv(args.input_val, index_col=0)
-
-X_train, y_train = extract_data(df_train)
-X_val, y_val = extract_data(df_val)
-
-text_features = ['text']
-
-train_pool = make_pool(X_train, y_train)
-valid_pool = make_pool(X_val, y_val)
-
-
 def objective(trial):
+
+    args = parse_args()
+
+    with open(args.params, 'r') as fp:
+        params = yaml.safe_load(fp)
+
+    df_train = pd.read_csv(args.input_train_validate, index_col=0)
+    df_val = pd.read_csv(args.input_val, index_col=0)
+
+    X_train, y_train = extract_data(df_train)
+    X_val, y_val = extract_data(df_val)
+
+    train_pool = make_pool(X_train, y_train)
+    valid_pool = make_pool(X_val, y_val)
 
     catboost_params = {
         "iterations": trial.suggest_int("iterations", 1000, 3000),
@@ -65,3 +62,5 @@ def objective(trial):
     f1 = f1_score(y_val, preds, average='macro')
 
     return f1
+
+text_features = ['text']
