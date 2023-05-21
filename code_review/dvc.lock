@@ -16,7 +16,7 @@ stages:
       size: 216632908
     - path: train_test_splitter.py
       md5: 7e2854677d17520b156b545f61432c57
-      size: 961
+      size: 929
     params:
       params.yaml:
         split_test:
@@ -25,10 +25,10 @@ stages:
     outs:
     - path: datasets/train_test/test.csv
       md5: 99efa52fca86b89bf6e6919702ff6b7d
-      size: 65472930
+      size: 65074871
     - path: datasets/train_test/train.csv
       md5: 2fa3812f9b54300f7368cd5d2f0a6a0d
-      size: 152486867
+      size: 151558065
   split_val:
     cmd: python train_val_splitter.py --train datasets/train_test/train.csv --output_train_validate
       datasets/train_val/train.csv --output_val datasets/train_val/val.csv --params
@@ -36,10 +36,10 @@ stages:
     deps:
     - path: datasets/train_test/train.csv
       md5: 2fa3812f9b54300f7368cd5d2f0a6a0d
-      size: 152486867
+      size: 151558065
     - path: train_val_splitter.py
       md5: 0f02be2ac2fc9b8e7de5d254b07538ae
-      size: 1012
+      size: 980
     params:
       params.yaml:
         split_val:
@@ -48,10 +48,10 @@ stages:
     outs:
     - path: datasets/train_val/train.csv
       md5: b9be1d70f618c6e335d1cf8c0ff45194
-      size: 106742638
+      size: 106092477
     - path: datasets/train_val/val.csv
-      md5: 7a0537e959a75edcb7d7e0806ea67147
-      size: 45744258
+      md5: 497dd2d2fbc124916866929b766d5977
+      size: 45465616
   objective:
     cmd: python objective_catboost.py --input_train_validate datasets/train_val/train.csv
       --input_val datasets/train_val/val.csv --test datasets/train_test/test.csv --params
@@ -59,13 +59,13 @@ stages:
     deps:
     - path: datasets/train_val/train.csv
       md5: b9be1d70f618c6e335d1cf8c0ff45194
-      size: 106742638
+      size: 106092477
     - path: datasets/train_val/val.csv
-      md5: 7a0537e959a75edcb7d7e0806ea67147
-      size: 45744258
+      md5: 497dd2d2fbc124916866929b766d5977
+      size: 45465616
     - path: objective_catboost.py
       md5: 2dd7db7d0d4929ac59004ff194a7f8c4
-      size: 2099
+      size: 2032
     params:
       params.yaml:
         catboost:

@@ -3,6 +3,7 @@ import json
 import pandas as pd
 import optuna
 from catboost import CatBoostClassifier
+from mlflow.catboost import log_model
 import yaml
 from objective_catboost import objective, extract_data, make_pool
 from sklearn.metrics import f1_score
@@ -63,6 +64,8 @@ def main(args):
             'test_f1_macro': test_f1_macro,
             'test_f1_micro': test_f1_micro
         }, fp)
+    
+    log_model(cb_model)
 
 
 if __name__ == '__main__':
