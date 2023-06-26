@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+catboost
+python-multipart
+optuna
+scikit-learn
+pytest
+requests_mock
+pytest-cov==4.1.0
+httpx
+flake8
