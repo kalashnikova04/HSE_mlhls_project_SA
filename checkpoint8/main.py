@@ -3,11 +3,13 @@ import pickle
 import catboost
 import pandas as pd
 import shutil
+from datetime import datetime
 from fastapi import FastAPI, UploadFile, File
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List
 from refit import refit
+from elastic_logging import es, index_name
 import os
 
 app = FastAPI()
@@ -28,7 +30,7 @@ class Item(BaseModel):
     text: str
 
     def predict(self):
-        y = model.predict(pd.DataFrame({'text':self.text}, index=[0]))
+        y = model.predict_proba(pd.DataFrame({'text':self.text}, index=[0]))
         return y
 
 class Items(BaseModel):
@@ -44,11 +46,18 @@ async def predict_item(item: Item) -> float:
     logging.info(f"Received request: {item}")
 
     pred = item.predict()
-
     # Log the prediction
-    logging.info(f"Prediction: {pred[0]}")
+    logging.info(f"Prediction: {pred.argmax()}")
 
-    return pred[0]
+    es.index(index=index_name, document={
+        'timestamp': datetime.utcnow(),
+        'event' : 'PREDICTION',
+        'text': item.text,
+        'proba': pred,
+        'class':pred.argmax(),
+    })
+
+    return pred.argmax()
 
 
 @app.post("/predict_items")
@@ -58,7 +67,15 @@ async def predict_items(items: List[Item]) -> List[float]:
     # Log the requests
     for item in items:
         logging.info(f"Received request: {item}")
-        results.append(item.predict()[0])
+        pred = item.predict()
+        results.append(pred.argmax())
+        es.index(index=index_name, document={
+            'timestamp': datetime.utcnow(),
+            'event' : 'PREDICTION',
+            'text': item.text,
+            'proba': pred,
+            'class':pred[0],
+        })
 
     # Log the predictions
     logging.info(f"Predictions: {results}")
@@ -81,4 +98,8 @@ async def retrain_model(uploaded_file: UploadFile = File(...)) -> str:
     with open('retrained_boost.pkl', 'wb') as f:
         pickle.dump(model, f)
 
+    es.index(index=index_name, document={
+        'timestamp': datetime.utcnow(),
+        'event' : 'RETRAIN',
+    })
     return 'Retraining finished'
